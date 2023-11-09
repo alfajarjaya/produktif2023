@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorial RouterOS</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand">Alfajjar</a>
+        <button
+          class="navbar-toggler bg-light"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" href="#home">Home</a>
+            <a class="nav-link" href="#about">Pengertian</a>
+            <a class="nav-link" href="#content">Langkah Pengerjaan</a>
+            <a class="nav-link" href="#contact">Contact Me</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <hr />
+    <h2 style="text-align: center; margin: 30px" id="home">
+      Belajar Instalasi RouterOS Menggunakan NAT dan Menghubungkan ke Client 1
+      dan Client 2 ( Client Berbasis Windows 7 )
+    </h2>
+    <hr />
+    <div class="card" id="about">
+      <h5>Perkenalan</h5>
+      <p>
+        Perkenalan nama saya Mochammad Alfajjar Syachputra. Saya bersekolah di
+        SMK Negeri 1 Mojokerto dengan jurusan TJKT atau Teknik jaringan dan
+        telekomunikasi. Saat ini saya kelas 11 . Untuk tugas kali ini adalah
+        "Instalasi RouterOS menggunakan NAT dan menghubungkan ke client". Saya
+        akan menjabarkan langkah konfigurasi tersebut di sini.
+      </p>
+      <h5>Tujuan</h5>
+      <p>
+        Agar siswa/I dapat dan bisa menyetting routerOS menggunakan NAT dan
+        dapat dihubungkan langsung kwe client melalui Lan Segment dan berbasis
+        windows 7.
+      </p>
+    </div>
+
+    <div class="card" id="content">
+      <h5>Persiapan</h5>
+      <br />
+      <h5><li>Alat dan Bahan</li></h5>
+      <ol>
+        <li>
+          Aplikasi VMWare<br />
+          <img
+            src="https://www.howtogeek.com/wp-content/uploads/2021/06/vmware_workstation_hero_3.jpg?width=1198&trim=1,1&bg-color=000&pad=1,1"
+            alt="vmware"
+            width="200px"
+          /><br />
+          <a
+            href="https://dl18.nesabamedia.net/windows/vmwareworkstation/VMware.Workstation.16.2.1.18811642.rar"
+            >Unduh di sini</a
+          >
+        </li>
+        <br />
+        <li>
+          ISO Mirotik <br />
+          <img
+            src="http://drive.google.com/uc?export=view&id=1v954FhsQm7vUtsDv9ojM4VBvOOCOGq7Q"
+            alt="iso"
+            width="200px"
+          />
+          <br />
+          <a
+            href="https://www.routeros.co.id/?act=preview&versi=6.33&nf=mikrotik-6.33.iso&key=9d8d81f60c61c94c09d78be766c21a76"
+            >Unduk di sini</a
+          >
+        </li>
+        <br />
+        <li>
+          Aplikasi Winbox 64x bit <br />
+          <img
+            src="https://1.bp.blogspot.com/-4LaAY9a4JEA/XQWbc5yTNdI/AAAAAAAAFSw/YHsMVTBffGA66AUZao_hukAGPVpaCg1wgCLcBGAs/s1600/Winbox.png"
+            alt="winbox"
+            width="200px"
+          />
+          <br />
+          <a href="https://mikrotik.com/download">Unduh di sini</a>
+        </li>
+        <br />
+        <li>
+          ISO Windows 7 <br />
+          <img
+            src="https://2.bp.blogspot.com/-X_qF6NFxaCI/Td9uTlbCzOI/AAAAAAAAAQw/_G_SNgJkbQM/w1200-h630-p-nu/windows7-microsoft.jpg"
+            alt="win7"
+            width="200px"
+          /><br />
+          <a
+            href="https://dl20.nesabamedia.net/apps/Windows7.Ultimate.SP1.x64.NesabaMedia.iso"
+            >Unduh di sini</a
+          >
+        </li>
+        <br />
+      </ol>
+      <hr />
+      <h5><li>Langkah - langkah konfigurasi</li></h5>
+      <br />
+      <h5>
+        <li>
+          Kalian juga bisa melihat video agar lebih jelas
+          <a href="https://youtu.be/Jm8FF4-vAr8?si=oL28x3C3JxWNlI6T">di sini</a>
+        </li>
+      </h5>
+      <hr />
+      <ol>
+        <li>
+          Pertama pahami topologi di bawah ini : <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjpOP5eNV9s8YIvGJd1Wev3dVhkLHu-wIb2InjqTFk9AfjmIFB603ZjT183p6Wo35eTttc97yEuY3ONuWAS_5dCDSkUygKHqJK70sama_zdPOsS9gXocgM2T1bRoPdFXhm7kK_uVpooTdvMQFqOSaBQ2ibtJqLkZZCQWg2LHuvfygPJJnXzSW-BNyJaMB4/s1600/TOPOLOGI.jpg"
+            alt="topologi"
+            width="200px"
+          />
+          <br />
+          <pre>
+Keterangan :
+          -IP host PC : 2.2.22.1/26
+
+          -IP Gateway 2.2.22.2
+
+          -IP ether1 : 2.2.22.3/26
+
+          -IP ether2 : 2.2.22.65/26
+
+          -IP ether3 : 2.2.22.129/26
+          </pre>
+        </li>
+
+        <li>
+          Pastikan Laptop/PC tersambung dengan internet<br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUKZWmc-JwZvyoV_PBdY_lKUP2p7i2ClIjr6RqgbMncYufnDJN0wTVFsyU6Iv1LU-PF48oCYO3jOe2ozsQtGcmiSSbl5jhfPxN5DWeKjfbVzQoVZqgSOpjZFXcuLFArI1E8Idb1EMh2KWMO3szZj_X9NXKrJjA5LRqEewvF82t3EIeXPM2qvt4TBN1RW8/s288/1.%20Pastikan%20laptop%20terhubung%20dengan%20jaringan%20yang%20stabil.png"
+            alt="internet"
+            width="200px"
+          />
+        </li>
+        <br />
+
+        <li>
+          Buka Aplikasi VMWare dan Install RouterOS
+          <a
+            href="https://fajarsyachputra.blogspot.com/2023/11/bangjarrrz-instalasi-routeros.html"
+            >Bisa ikuti panduan berikut</a
+          >
+        </li>
+        <br />
+        <li>
+          Jangan lupa masukkan ISO Mikrotik<br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhvJvmOYugxJMxwrmmjXRyZAQl1elsP8xVsP9QPtv7ciPb80FJiwErGzfRDbZYCxIXCxfT5GY5jkLodO7jND4Cebt2A0_e2SwyGyuqefq7QLr8UeX-Ct1AOJzy6Sq5abf9FYeacqALPNzUIGX6YUO1JhzXDddkDBoHtDoVMg9KlvuYcnhAhQB58KifzJh4/s1920/2.%20Masukkan%20ISO%20mikrotik%20.png"
+            alt="iso"
+            width="300px"
+          /><br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhvJvmOYugxJMxwrmmjXRyZAQl1elsP8xVsP9QPtv7ciPb80FJiwErGzfRDbZYCxIXCxfT5GY5jkLodO7jND4Cebt2A0_e2SwyGyuqefq7QLr8UeX-Ct1AOJzy6Sq5abf9FYeacqALPNzUIGX6YUO1JhzXDddkDBoHtDoVMg9KlvuYcnhAhQB58KifzJh4/s1920/2.%20Masukkan%20ISO%20mikrotik%20.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+        <br />
+        <li>
+          Tambahkan 2 Network Adapter <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgwqWwvxy61MqbPqPNBpKaZgc8LvlKIQ2XxdnCfZWNzYC97VP43nYK4yebHY3V5BGpsoWY8E8Z18QpWhrl6Wh12_8cTU4p6nCRx66YDSJmwEvZHzRpDqdIbRTrEc_4OMHPO4LbC_kT7GiJhL4ptep9O-satyR2OCsP-Rmz5gLCrVF_YutirDyx3ggKH82E/s1920/3.%20Tambahkan%20Network%20adapter.png"
+            alt="adapter1"
+            width="300px"
+          /><br />
+          <p>network adapter - add</p>
+          <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiog-BOHsuEFlQTm_s9XhMqEj1QfT1WvblVM-GsuZSaSWofVTMTE2xq1xiE7_7bDhY-l1JisvDfvsrxh6Ix9M6qZe-mPtzkE2xaPQhlSTuYmlnmRfRJ-qhNjjAJXxeYCCKYViiVn6EupKowlwoq4p2L7Nln6NND1WTU2xK1MSmxmBS-AzZUM9-qWB-1MEk/s1920/4.%20add%20net%20finish.png"
+            alt="adapter2"
+            width="300px"
+          /><br />
+          <p>Network adapter - finsih</p>
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgwqWwvxy61MqbPqPNBpKaZgc8LvlKIQ2XxdnCfZWNzYC97VP43nYK4yebHY3V5BGpsoWY8E8Z18QpWhrl6Wh12_8cTU4p6nCRx66YDSJmwEvZHzRpDqdIbRTrEc_4OMHPO4LbC_kT7GiJhL4ptep9O-satyR2OCsP-Rmz5gLCrVF_YutirDyx3ggKH82E/s1920/3.%20Tambahkan%20Network%20adapter.png"
+              >di sini</a
+            >
+            dan
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiog-BOHsuEFlQTm_s9XhMqEj1QfT1WvblVM-GsuZSaSWofVTMTE2xq1xiE7_7bDhY-l1JisvDfvsrxh6Ix9M6qZe-mPtzkE2xaPQhlSTuYmlnmRfRJ-qhNjjAJXxeYCCKYViiVn6EupKowlwoq4p2L7Nln6NND1WTU2xK1MSmxmBS-AzZUM9-qWB-1MEk/s1920/4.%20add%20net%20finish.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+        <br />
+        <li>
+          Pada network adapter 2 dan network adapter 3, ubah ke LAN Segment
+          <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0m1LEMNT4yDBTAtey298SN_pnkCYIx82fqSvSOyw-UUMsiekz_pmaizz28P12MofMnf-OOdJP0Yw49BCxnFywmqCFHYJ1M9j0S_XSnGakrqOotROEbaDAxvByuZwN0f7MuXDJhQmFGcchDQDAuain9owi8lRFUMAtrfqctTUcJrgSYVPb-SVMWdOCRmM/s1920/7.%20Tambahkan%20lan%20segment.png"
+            alt="LAN"
+            width="300px"
+          />
+          <br />
+          <p>
+            Apabila belum ada LAN Segment, tambahkan LAN Segment dengan cara :<i
+              >add - ok</i
+            >
+            <br />
+
+            KET : <br />
+            - Adapter 2 --> LAN Segment 1 <br />
+            - Adapter 3 --> LAN Segment 2
+          </p>
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0m1LEMNT4yDBTAtey298SN_pnkCYIx82fqSvSOyw-UUMsiekz_pmaizz28P12MofMnf-OOdJP0Yw49BCxnFywmqCFHYJ1M9j0S_XSnGakrqOotROEbaDAxvByuZwN0f7MuXDJhQmFGcchDQDAuain9owi8lRFUMAtrfqctTUcJrgSYVPb-SVMWdOCRmM/s1920/7.%20Tambahkan%20lan%20segment.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>Setelah itu tekan OK, dan Jalankn Virtual mesin RouterOS nya</li>
+        <li>
+          Install RouterOS dengan perintah "A" , "I" , "Y" <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiIGUiJ8fN2Rrf6EcBsM2sjuWkiS3d744DtRJiVySkSAYdZgPFTURAUuazvpnyObNNe8SieJoFdQOpuZs-5wW-CekR8ID2vxYJd0VczDWG3TCyM88Gb5j0MSKRWal-hGxSv-3RkY4C4BqvyVO3n4UOaNMnXEg9lk3Fz4eqdz7ySKzocKhS6dY552J5R4_A/s1692/10.%20Instalasi%20Router%20OS.png"
+            alt="AIY"
+            width="300px"
+          />
+          <br />
+          <pre>
+KET :
+            A = Pilih semua file
+            I = Install semua file
+            Y = Lanjutkan instalasi
+          </pre>
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiIGUiJ8fN2Rrf6EcBsM2sjuWkiS3d744DtRJiVySkSAYdZgPFTURAUuazvpnyObNNe8SieJoFdQOpuZs-5wW-CekR8ID2vxYJd0VczDWG3TCyM88Gb5j0MSKRWal-hGxSv-3RkY4C4BqvyVO3n4UOaNMnXEg9lk3Fz4eqdz7ySKzocKhS6dY552J5R4_A/s1692/10.%20Instalasi%20Router%20OS.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Setelah itu jalankan sesuai gambar di bawah ini <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjopKTdFnhC3iL7mmcIhSd9UGX-v_PMlfy3uFA_kjjjYU9_sz0s2GRkhtwOL54bsqvO794QRNmV9Oop4sZR-hgOwVjpSaCrycJYnzpibGKhcq0oFGD0Y-l4zfpbVMVvl6L0lhwSGRHJCVj0RT_Edb5kHzYjbm2Y4XolvI3kalB0vCYHqaWVP2CGY2HV_Bg/s1608/11.%20Ubah%20nama%20interface%20agar%20mudah%20di%20ingat.png"
+            alt="awal"
+            width="300px"
+          />
+          <br />
+          <pre>
+Ket :
+  - interface pr = melihat apakah benar 
+      terdapat 3 interface
+  - ubah nama intercafe agar mudah di ingat.
+
+          </pre>
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjopKTdFnhC3iL7mmcIhSd9UGX-v_PMlfy3uFA_kjjjYU9_sz0s2GRkhtwOL54bsqvO794QRNmV9Oop4sZR-hgOwVjpSaCrycJYnzpibGKhcq0oFGD0Y-l4zfpbVMVvl6L0lhwSGRHJCVj0RT_Edb5kHzYjbm2Y4XolvI3kalB0vCYHqaWVP2CGY2HV_Bg/s1608/11.%20Ubah%20nama%20interface%20agar%20mudah%20di%20ingat.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Setelah itu beri IP dimasing - masing interface sesuai ketentuan
+          pemberian IP di atas. <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-0iayJvY1CQEGpPFnh-AIsy_n-pRVm3ziryT_Ive5pptsVPhGVnMJpnsIXU0_hFB0p1M92Syh-ijnffup5NRMQ9PG3DXMvz5rKCU0jPKYpleH8unonpDupaQC6hmvrRTdzVWoZ77mYW3SwJPTpOucqGtlaDqnweeqF7HKZn1ELKzHkxlCbUMmtYGoAYk/s1056/12.%20beri%20IP%20di%20masing%20masing%20interface%20sesuai%20topologi.png"
+            alt="IP"
+            width="300px"
+          />
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-0iayJvY1CQEGpPFnh-AIsy_n-pRVm3ziryT_Ive5pptsVPhGVnMJpnsIXU0_hFB0p1M92Syh-ijnffup5NRMQ9PG3DXMvz5rKCU0jPKYpleH8unonpDupaQC6hmvrRTdzVWoZ77mYW3SwJPTpOucqGtlaDqnweeqF7HKZn1ELKzHkxlCbUMmtYGoAYk/s1056/12.%20beri%20IP%20di%20masing%20masing%20interface%20sesuai%20topologi.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Buka Aplikasi Winbox dan cari IP yang tersambung ( ether 1 ) <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgY9VYllHoM4FfjQ99pXdp3awOP0TQovtTrfaR1JQqzTucFwst9gArp-O0virCPYJYvXZepgaLOM2aghAM99nfFwKhlS0Lg94w7DDnplkGcOn_SmsZr3BcS4OkGQGiu_HdW1UqfGCih4LRz-cSFTB9r9psLlRqWvrz-4AAgFWvST77IWKSHo0r9Xr1JpIk/s1920/13.%20login%20winbox.png"
+            alt="winbox"
+            width="300px"
+          />
+          <br />
+          <p>Pilih MAc Address</p>
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgY9VYllHoM4FfjQ99pXdp3awOP0TQovtTrfaR1JQqzTucFwst9gArp-O0virCPYJYvXZepgaLOM2aghAM99nfFwKhlS0Lg94w7DDnplkGcOn_SmsZr3BcS4OkGQGiu_HdW1UqfGCih4LRz-cSFTB9r9psLlRqWvrz-4AAgFWvST77IWKSHo0r9Xr1JpIk/s1920/13.%20login%20winbox.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Cek IP Address apakah sudah sesuai <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg4G31x9J6rxx_ZExFT75tn5bnqXHRcmGFYMK2lixubm6At5eRIaFBZwKwWFDt9FIAU3uqfisbWmpxBdJ68amYQIazxN1tPzvQrfzaEz4zAYm8H2YwC-tcDjMIkIc9J0AurQAwZXY22gQuZX_3Q552gL8DG99Q-3a8ZFvr7p9weZw-DkvhwN5XKbIN510M/s1920/14.%20cek%20IP%20address.png"
+            alt="cekIP"
+            width="300px"
+          />
+          <br />
+          <p>IP --> Address</p>
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg4G31x9J6rxx_ZExFT75tn5bnqXHRcmGFYMK2lixubm6At5eRIaFBZwKwWFDt9FIAU3uqfisbWmpxBdJ68amYQIazxN1tPzvQrfzaEz4zAYm8H2YwC-tcDjMIkIc9J0AurQAwZXY22gQuZX_3Q552gL8DG99Q-3a8ZFvr7p9weZw-DkvhwN5XKbIN510M/s1920/14.%20cek%20IP%20address.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Beri IP DNS <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj4einqVn8IkaWP_bev10oTyXk8QTEeF-nmMY4PshOuhgSo9XtWDtYecXmYKy0WHX0FZQwT5rrcy3qQlWLUIwX729Xq7kD3wkG0NNEjoe_SqeTrzZ_U4OM97SV1ZAbUcN3stBd-Q4euEMbzt4Z4TDZRnGl8cd5qLDRASQpafDDNCItmxMNfI3ZteKAOBsM/s1920/15.%20beri%20IP%20DNS.png"
+            alt="IPDNS"
+            width="300px"
+          />
+          <br />
+          <p>IP --> DNS</p>
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj4einqVn8IkaWP_bev10oTyXk8QTEeF-nmMY4PshOuhgSo9XtWDtYecXmYKy0WHX0FZQwT5rrcy3qQlWLUIwX729Xq7kD3wkG0NNEjoe_SqeTrzZ_U4OM97SV1ZAbUcN3stBd-Q4euEMbzt4Z4TDZRnGl8cd5qLDRASQpafDDNCItmxMNfI3ZteKAOBsM/s1920/15.%20beri%20IP%20DNS.png"
+              >di sini</a
+            >
+          </p>
+          <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjk5KVLWUP-PLjuvhlCzdusLSCFOBr_UdegefCnIPn7l4BQrzJVUI05Mxduvo-i_6PyfWvZy7Gw5Kx8mnXhKQdXh5Ebnoaw-jUY2rnsfwbDhpthITxDFFeepoVtBnFVoOh7Qp6PgcM708WLcB1pw28tiL73Y4SX1pAf44zUNfOlKpubc6GLAKaQM0-tAT0/s1377/16.%20Lihat%20IP%20DNS%20yang%20terhubung%20dgn%20internet.png"
+            alt="DNSLAptop"
+            width="300px"
+          />
+          <br />
+          <p>Lihat IP DNS internet / laptop</p>
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjk5KVLWUP-PLjuvhlCzdusLSCFOBr_UdegefCnIPn7l4BQrzJVUI05Mxduvo-i_6PyfWvZy7Gw5Kx8mnXhKQdXh5Ebnoaw-jUY2rnsfwbDhpthITxDFFeepoVtBnFVoOh7Qp6PgcM708WLcB1pw28tiL73Y4SX1pAf44zUNfOlKpubc6GLAKaQM0-tAT0/s1377/16.%20Lihat%20IP%20DNS%20yang%20terhubung%20dgn%20internet.png"
+              >di sini</a
+            >
+          </p>
+          <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkZWSRBk-gjkgj_gX-ZaR57trSiPS0Uf7kOKcrxPpMprac8bkzNeWgR99P32NgnwcBlti9WnZttBSCC6_HAZ_5llZr6aAyPe95qLOTA_q0AmUpCUHd288-X9w7N_l7Kk3L0PNOnz7j_UvN-_4k8fKandk8lY1-kzt4x8laN94w_3UXnr7lURHdbb9W5Hk/s1920/17.%20seperti%20inin.png"
+            alt="beriIP"
+            width="300px"
+          />
+          <br />
+          <pre>
+beri IP DNS :
+  - 8.8.8.8 ( DNS google )
+  - 8.8.4.4 ( DNS google )
+  - 192.168.190.167 ( DNS internet /laptop )
+  jangan lupa centang menu
+    Allow Remote Requests
+          </pre>
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkZWSRBk-gjkgj_gX-ZaR57trSiPS0Uf7kOKcrxPpMprac8bkzNeWgR99P32NgnwcBlti9WnZttBSCC6_HAZ_5llZr6aAyPe95qLOTA_q0AmUpCUHd288-X9w7N_l7Kk3L0PNOnz7j_UvN-_4k8fKandk8lY1-kzt4x8laN94w_3UXnr7lURHdbb9W5Hk/s1920/17.%20seperti%20inin.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Atur Firewall nya <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh17fprmEa7UA2LI-SrhOiV7Lybahjd3erzltWHvNzBAMhSOATTbi0ZOsDgNoDmBjXfgdDES-AaMDisbusabAVsTtdnZUbEg_gFvmXRoyfKPUy8mV6NvGZWb61WMGvwdGoz5n8bbDmgVfKO0Sqq9cUCH5-n28d0HjpJIPgp2lkfPMDgHJpse2hLpfw5gY8/s1920/18.%20atur%20firewall.png"
+            alt="firewall"
+            width="300px"
+          />
+          <br />
+          <p>IP --> Firewall --> NAT --> tanda ( + )</p>
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh17fprmEa7UA2LI-SrhOiV7Lybahjd3erzltWHvNzBAMhSOATTbi0ZOsDgNoDmBjXfgdDES-AaMDisbusabAVsTtdnZUbEg_gFvmXRoyfKPUy8mV6NvGZWb61WMGvwdGoz5n8bbDmgVfKO0Sqq9cUCH5-n28d0HjpJIPgp2lkfPMDgHJpse2hLpfw5gY8/s1920/18.%20atur%20firewall.png"
+              >di sini</a
+            >
+          </p>
+          <br />
+          <p>
+            pada menu General untuk Chain pilih srcnat dan Out.Interface
+            ether1-internet
+          </p>
+          <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj8sEnvAwH1TLU10Tf2S9EA8WIKiXAZHTIK1q440RQHNp36XfU6HbHynkvupuxOvvD8LYSstQzx8UFI0GigDlHfvhfk9YvJiNqp9No6CkFjRCIkpRIfUZaxgFJqAsyuzjVgIEBzag0qvc8-HoE137K8qhPulU7u0NYzTSvfXDprJGE3SiZ9uyWAsnqi12U/s1920/19.%20action%20masquerade.png"
+            alt="action"
+            width="300px"
+          />
+          <br />
+          <p>pada menu Action pilih masquerade</p>
+
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj8sEnvAwH1TLU10Tf2S9EA8WIKiXAZHTIK1q440RQHNp36XfU6HbHynkvupuxOvvD8LYSstQzx8UFI0GigDlHfvhfk9YvJiNqp9No6CkFjRCIkpRIfUZaxgFJqAsyuzjVgIEBzag0qvc8-HoE137K8qhPulU7u0NYzTSvfXDprJGE3SiZ9uyWAsnqi12U/s1920/19.%20action%20masquerade.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Selanjutnya atur Hospot untuk ether3-hospot <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiPg26xKhnAu-gUT1kTJutxFHF8kNtwRkws4a9Cg5awub96Ztob4m8tz_6PEpSnv-4jmHt1Gp30bJnZpUHSB_ffQmuOlToFoCur-a37FxnByUzR7-X1r8iUbPy52Ys2AztAPOuMBn-cZPgoxvpQIhvRy2MmK3GEma0fcy0cq4Redt2zUqabT3R-2p-cQzM/s1920/20.%20IP%20hospot%20ether3.png"
+            alt="Hospot"
+            width="300px"
+          />
+          <br />
+          <p>IP --> Hospot --> Hospot SetUp -->ether3-hospot --> next</p>
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiPg26xKhnAu-gUT1kTJutxFHF8kNtwRkws4a9Cg5awub96Ztob4m8tz_6PEpSnv-4jmHt1Gp30bJnZpUHSB_ffQmuOlToFoCur-a37FxnByUzR7-X1r8iUbPy52Ys2AztAPOuMBn-cZPgoxvpQIhvRy2MmK3GEma0fcy0cq4Redt2zUqabT3R-2p-cQzM/s1920/20.%20IP%20hospot%20ether3.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Atur gateway. Kembali ke VMWare lagi <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3_sNgkoc936Bw4OHzAbyDWRK0tGS2OzT0-qymGAPOLeYdC5JcofFUPfbXH5TQE8jnRXFIX_r9MODWaoV9Ir6JR01XlEDlswHRuT24cC-b8qGGL6c7n7lsOxTY3TXxKObzQcdzO4CEg3OmjKkSytW9JY0Dv6XwMVN6aUNgXNB1f4s5zwQPShUKofSjmZE/s1920/22.%20masuk%20virtual%20network.png"
+            alt="gateway"
+            width="300px"
+          />
+          <br />
+          <p>Edit --> Virtual Network Editor</p>
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3_sNgkoc936Bw4OHzAbyDWRK0tGS2OzT0-qymGAPOLeYdC5JcofFUPfbXH5TQE8jnRXFIX_r9MODWaoV9Ir6JR01XlEDlswHRuT24cC-b8qGGL6c7n7lsOxTY3TXxKObzQcdzO4CEg3OmjKkSytW9JY0Dv6XwMVN6aUNgXNB1f4s5zwQPShUKofSjmZE/s1920/22.%20masuk%20virtual%20network.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Ubah SubnetIP Pada VMNet8 , setelah itu tekan NAT Settings <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTt7Q39eDpMXbZEt8o-FSbkLQFNXj9uCyT1zEaBVB-LL8924yZ7S7nMHkO_IC2ghdMJKdBmMy5wC-IfcppUX_zhNb_nBRzQ49gdwXBOdJCxZbkICbAHXQf6tI393zrJMYczsgldVKmlEhbj5p4-em5ZQWMKstmTqwHR9-Q2ZJcE5q7SzFn58bayRSxVk0/s1920/23.%20atur%20seperti%20ini%20ditopologi.png"
+            alt="gateway"
+            width="300px"
+          />
+          <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjAq5tN4UUxXx0FIEBEODGXlnWBMtjvVvaazJYRDZH-jJrWMZmHtZRXdk2B9zkdeWo75O9bSMYT074FL2LRhGgOXZM92MHuTgdjU1WYAExQa9fXRcJUbFekSfza91BWoiSnwi9wlIn-6e4BqxwGg10UjzusfbuF5u6ib74ZATjFbVI_Wb1bioT1T1m4fKM/s1920/24.%20cek%20apakah%20ip%20benaar.png"
+            alt="gateway"
+            width="300px"
+          />
+          <br />
+          <p>cek apakah sesuai dengan yang ada di topologi.</p>
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhTt7Q39eDpMXbZEt8o-FSbkLQFNXj9uCyT1zEaBVB-LL8924yZ7S7nMHkO_IC2ghdMJKdBmMy5wC-IfcppUX_zhNb_nBRzQ49gdwXBOdJCxZbkICbAHXQf6tI393zrJMYczsgldVKmlEhbj5p4-em5ZQWMKstmTqwHR9-Q2ZJcE5q7SzFn58bayRSxVk0/s1920/23.%20atur%20seperti%20ini%20ditopologi.png"
+              >di sini</a
+            >
+            dan
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjAq5tN4UUxXx0FIEBEODGXlnWBMtjvVvaazJYRDZH-jJrWMZmHtZRXdk2B9zkdeWo75O9bSMYT074FL2LRhGgOXZM92MHuTgdjU1WYAExQa9fXRcJUbFekSfza91BWoiSnwi9wlIn-6e4BqxwGg10UjzusfbuF5u6ib74ZATjFbVI_Wb1bioT1T1m4fKM/s1920/24.%20cek%20apakah%20ip%20benaar.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Coba ping google <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi6bNi3N06N_hJs6taCrIkV1xDTNVaH2-x9k6aY18GVoVEO__QfiESDavR_6eakR0px3lhM-tBgjoTfGwME2w1ZDHOBSnSVon5zAUUjYTyNWsnfFd9hHqtkv-imFAMxpQXScgnSW93NiytKb4Ul5KPWXJL5l90EIbEeeV_KghNn5N-m-7kYg62j_9oafJs/s1920/25.%20coba%20ping%20google.png"
+            alt="ping"
+            width="300px"
+          />
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi6bNi3N06N_hJs6taCrIkV1xDTNVaH2-x9k6aY18GVoVEO__QfiESDavR_6eakR0px3lhM-tBgjoTfGwME2w1ZDHOBSnSVon5zAUUjYTyNWsnfFd9hHqtkv-imFAMxpQXScgnSW93NiytKb4Ul5KPWXJL5l90EIbEeeV_KghNn5N-m-7kYg62j_9oafJs/s1920/25.%20coba%20ping%20google.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Atur network adapter client 1 dan client 2, ubah manjadi lan segment 1
+          dan lan segment 2 <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgiZgeEq7tVuXH_y4KMVCshR65vKG46HzDURdMTaXHgdbTKktqi5Hu1sg_9PyLq2RyWFhBjQ18q4Vb2y3z2AYSUUqC_yT78E8OXFHHp6XhedCwxaH16l6rOzXVEdoFgPKwDx2XrDFhn__z4KiNvGUp99WqNnZHmDth6hJTdrUEatiqHrXIWvHIU9-ffYU8/s1920/26.%20Client1.png"
+            alt="client1"
+            width="300px"
+          />
+          <br />
+          <p>Client 1</p>
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgiZgeEq7tVuXH_y4KMVCshR65vKG46HzDURdMTaXHgdbTKktqi5Hu1sg_9PyLq2RyWFhBjQ18q4Vb2y3z2AYSUUqC_yT78E8OXFHHp6XhedCwxaH16l6rOzXVEdoFgPKwDx2XrDFhn__z4KiNvGUp99WqNnZHmDth6hJTdrUEatiqHrXIWvHIU9-ffYU8/s1920/26.%20Client1.png"
+              >di sini</a
+            >
+          </p>
+          <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXWnD3v9JfowH8IK6m5tHNsK8_O-VE-dQEvdnn32Zk3olJr87wngY7eZnmRVKATBmvqUVBVU5mphzwERnnLNvhlRlRZ-41xIH16Z93X6xnBhHvUWR1Y2YjNlGoCtczVIi4Vtmy3UCuOnQ4jmQT3y0KwLAPq0quqWSCeqHyDqeP1yEUTqDtHrPdRb1EjM4/s1920/27.%20Client2.png"
+            alt="client2"
+            width="300px"
+          />
+          <br />
+          <p>client 2</p>
+          <br />
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXWnD3v9JfowH8IK6m5tHNsK8_O-VE-dQEvdnn32Zk3olJr87wngY7eZnmRVKATBmvqUVBVU5mphzwERnnLNvhlRlRZ-41xIH16Z93X6xnBhHvUWR1Y2YjNlGoCtczVIi4Vtmy3UCuOnQ4jmQT3y0KwLAPq0quqWSCeqHyDqeP1yEUTqDtHrPdRb1EjM4/s1920/27.%20Client2.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>
+          Buka Client 1 atau 2. setelah itu masuk search eginer. Masukkan IP
+          yang tersambung ke client <br />
+          <img
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJ-8pe4POhlqAgIt3r_BZWgRCGf9QbXI-6Jquc8EStkurjuAlhU3ZOa3Qp4M8BXsu-CjdNvLDps41wIJ1GZqYa8rqYU4Nkmf-Av7Ejar75EGdRjOpFG7vWU8OwFjUNtrpWV1Q7k9ULfbHl7uhFcumE7kNeQSQd_XGyQn0OjAPbzcdYwiz7wysVuZb0EwE/s836/butkti3.png"
+            alt="berhasil"
+            width="300px"
+          />
+          <br />
+          <p>login agar dapat tersambung dengan internet.</p>
+          <p>
+            Apabila kurang jelas lihat
+            <a
+              href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJ-8pe4POhlqAgIt3r_BZWgRCGf9QbXI-6Jquc8EStkurjuAlhU3ZOa3Qp4M8BXsu-CjdNvLDps41wIJ1GZqYa8rqYU4Nkmf-Av7Ejar75EGdRjOpFG7vWU8OwFjUNtrpWV1Q7k9ULfbHl7uhFcumE7kNeQSQd_XGyQn0OjAPbzcdYwiz7wysVuZb0EwE/s836/butkti3.png"
+              >di sini</a
+            >
+          </p>
+        </li>
+
+        <li>Buka CMD di client 1 atau 2. Setelah itu coba ping google.</li>
+
+        <li>Selamat Anda telah berhasil dalam uji praktik ini.</li>
+      </ol>
+    </div>
+
+    <footer class="contact" id="contact">
+      <h5 style="margin: 20px">
+        Apabila terdapat pertanyaan atau yang lain bisa hubungi saya
+        <button class="btn btn-primary" type="submit" name="submit" value="yes">
+          <a href="https://wa.me/628515650796" style="color: black">di sini</a>
+        </button>
+      </h5>
+      <p>&copy; hak cipta Alfajjar</p>
+    </footer>
+    <p style="margin-bottom: 100px"></p>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
